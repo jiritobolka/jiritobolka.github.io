@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GoodData Javascript SDK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://developer.gooddata.com/favicon.ico" rel="shortcut icon">
+    <!-- Le styles -->
+    <link href="http://sdk.gooddata.com/gooddata-js/css/bootstrap.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/syntax.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/style.css" rel="stylesheet">
+
+<style>
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background: url(http://sdk.gooddata.com/gooddata-js/images/background.png) fixed left top no-repeat;
+    background-size: 111px 245px;
+
+  }
+
+a.topics {margin-top: 7px; font-size: 16px;}
+
+  /* Custom container */
+  .container-narrow {
+    margin: 45px auto;
+    max-width: 700px;
+  }
+  .container-narrow > hr {
+    margin: 45px 0;
+  }
+
+  /* Main marketing message and sign up button */
+  .jumbotron {
+    padding: 60px 0;
+    text-align: center;
+  }
+  .jumbotron h1 {
+    font-size: 48px;
+    line-height: 1;
+  }
+  .jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+
+  /* Supporting marketing content */
+  .marketing {
+    margin: 60px 0;
+  }
+  .marketing p + h4 {
+    margin-top: 28px;
+  }
+
+  img.centered {
+    margin: 30px auto;
+    display: block;
+/*        border: 1px solid red;*/
+  }
+
+
+</style>
+
+</head>
+  <body>
+    <div>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div style="margin-left: 100px;">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="http://sdk.gooddata.com/gooddata-js">
+                <img src="http://sdk.gooddata.com/gooddata-js/images/header-logo.png" alt="GoodData JS SDK" width="24" height="24">
+            GoodData<span style="color: #F0E040;">JS
+            </a>
+            <div class="nav-collapse collapse container">
+                <ul class="nav">
+                    
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//getting-started">Get Started</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//tutorials">Build Visualization</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//api">API</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://developer.gooddata.com/forum" target="_blank">Forum</a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </div>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div style="margin-left: 100px;">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="http://sdk.gooddata.com/gooddata-js">
+      <img src="http://sdk.gooddata.com/gooddata-js/images/header-logo.png" alt="GoodData Labs" width="24" height="24">
+      GoodData<span style="color: #F0E040;">JS
+</a>
+      <div class="nav-collapse collapse container">
+        <ul class="nav">
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/">Home</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/getting-started">Get Started</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/tutorials">Build Visualization</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/api">API</a>
+          </li>
+		<li class="">
+            <a href="https://developer.gooddata.com/forum" target="_blank">Forum</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-narrow" style="margin-top: 40px;">
+  <h2>Visualize Sales Data using Chord Chart</h2>
+  <p>Let’s learn how to build <a href="http://bl.ocks.org/mbostock/4062006#index.html">chord chart</a> that shows you how each sales person contributed to the quarter sales results:</p>
+
+<p><img src="/images/posts/chord-chart.png" alt="Chord Chart" /></p>
+
+<p>More info about <a href="http://www.gghh.name/dibtp/?p=234">setting up D3.js Chord chart</a>.</p>
+
+<h3 id="get-the-data">1) Get the data</h3>
+
+<p>First of all you have to select metric and attributes that you want to use in your visualization. </p>
+
+<p>Remember that you need to specify an object identifier. The example can be <code>label.opp_owner.id.name</code> for attribute or <code>afSEwRwdbMeQ</code> for fact. </p>
+
+<p>See the example output below. The data is exported in a raw format. Data is not cross-tabulated. Let’s see how it looks in Javascript. </p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js">var projectId = &#39;PROJECT-ID&#39;,  
+    user = &#39;USERNAME&#39;,  
+    passwd = &#39;PASSWORD&#39;;    
+
+// Report elements identifiers from which we execute a GD report
+var metric = &#39;METRIC-IDENTIFIER&#39;, // sales
+    attr1 = &#39;oppclose.aam81lMifn6q&#39;, // opportunity close quarter
+    attr2 = &#39;label.opp_owner.id.name&#39;; // opportunity owner
+    
+var elements = [attr1, attr2, metric];
+
+// Insert info label
+$(&#39;body&#39;).append(&#39;&lt;div class=&quot;login-loader&quot;&gt;Logging in...&lt;/div&gt;&#39;);
+
+gooddata.user.login(user, passwd).then(function() {
+
+    $(&#39;div.login-loader&#39;).remove();
+    $(&#39;body&#39;).append(&#39;&lt;div class=&quot;loading&quot;&gt;Loading data...&lt;/div&gt;&#39;);
+
+    // Ask for data for the given metric and attributes from the GoodData project
+    gooddata.execution.getData(projectId, elements).then(function(dataResult) {
+        // Yay, data arrived
+
+ // Remove loading labels
+        $(&#39;div.loading&#39;).remove();
+
+// ... ... REST OF CODE - see below ... ...  
+
+});</code></pre></div>
+
+<p>The key part is the <code>getData()</code> method that calls the GoodData APIs and gives you data result for specified elements. </p>
+
+<h3 id="transform-data">2. Transform data</h3>
+
+<p>In our <a href="/tutorial/Your-First-Visualization">first tutorial</a>, we didn’t need any kind of data transformation because the data was ready to send to the D3. We need to do this now. This part always depends on what data you are extracting and what type of visualization you want to create. It is a fully custom javascript code.</p>
+
+<p><img src="/images/posts/transform-data.png" alt="Workflow" /></p>
+
+<p>We basically transform the data to fit the D3.js data input definition. Sometimes this can be quite complex task to solve. In our example we must transform the raw data output that looks as follows:</p>
+
+<p><img src="/images/posts/raw-data.png" alt="Raw Output" /></p>
+
+<p>to the matrix that is being consumed by D3 visualization. Check out the resulting matrix:</p>
+
+<p><img src="/images/posts/chord-chart-matrix.png" alt="Chord Chart Matrix" /></p>
+
+<p>What you can see from the matrix above is contribution of each salesperson to the Quarter Revenue. You can see that <strong>Andrew Seals</strong> brings in <strong>8083016</strong> revenue in the Q1 and <strong>9389679</strong> revenue in Q2. This is what D3 Chord chart needs as the input. If you go row by row, you can see that there is zero value between each quarters and each sales person. It is correct because they are not contributing to each other.  </p>
+
+<p>The complexity here is to transform the data we receive from GoodData to this format. This is done by the transformData function.</p>
+
+<div class="highlight"><pre><code class="language-js" data-lang="js">var transformData = function(dataResult) {
+            var headers = dataResult.headers.map(function(h) {
+                    return h.title;
+                }),
+                data = dataResult.rawData,
+                length = data.length,
+                attr1 = headers[0],
+                attr2 = headers[1],
+                metric = headers[2],
+                attr1Keys = {},
+                attr2Keys = {},
+                matrix = [];
+
+            // Compute metric values for both attributes values and store them in hashmap
+            data.forEach(function(row) {
+                var key1 = row[headers.indexOf(attr1)],
+                    key2 = row[headers.indexOf(attr2)],
+                    metricVal = parseFloat(row[headers.indexOf(metric)]);
+
+                if (!attr1Keys[key1]) attr1Keys[key1] = [];
+                if (!attr2Keys[key2]) attr2Keys[key2] = [];
+                attr1Keys[key1].push(metricVal);
+                attr2Keys[key2].push(metricVal);
+            });
+
+            // Get the keys in an array
+            var attr1Vals = Object.keys(attr1Keys),
+                attr2Vals = Object.keys(attr2Keys),
+                matrixIdx = 0,
+                i = 0;
+
+            // Initialize result matrix
+            for (i=0; i&lt;attr1Vals.length+attr2Vals.length; i++) matrix.push([]);
+
+            // For each key in an array generate a row in a resulting matrix
+            attr1Vals.forEach(function(attrVal) {
+                // Generate leading zeros
+                for (i=0; i&lt;attr1Vals.length; i++) matrix[matrixIdx].push(0);
+                matrix[matrixIdx] = matrix[matrixIdx].concat(attr1Keys[attrVal]);
+                matrixIdx++;
+            });
+
+            // For each key in an array generate a row in a resulting matrix
+            attr2Vals.forEach(function(attrVal) {
+                // Generate leading zeros
+                matrix[matrixIdx] = matrix[matrixIdx].concat(attr2Keys[attrVal]);
+                for (i=0; i&lt;attr2Vals.length; i++) matrix[matrixIdx].push(0);
+                matrixIdx++;
+            });
+
+            return {
+                labels: [].concat(attr1Vals.concat(attr2Vals)),
+                matrix: matrix
+            };
+        };</code></pre></div>
+
+<ol>
+  <li>Setup the D3 Visualization </li>
+</ol>
+
+<p>This part really depends on the visualization type you use. We are using chord chart </p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">var fill = d3.scale.category10();
+
+        // Use the helper function and transform the data
+        var data = transformData(dataResult);
+
+        // Visualize
+        var chord = d3.layout.chord()
+            .padding(.05)
+            .sortSubgroups(d3.descending)
+            .matrix(data.matrix);
+
+        var width = 960,
+            height = 500,
+            r1 = height / 2,
+            innerRadius = Math.min(width, height) * .41,
+            outerRadius = innerRadius * 1.1,
+            outer
+
+        var svg = d3.select(&quot;body&quot;).append(&quot;svg&quot;)
+            .attr(&quot;width&quot;, width+200)
+            .attr(&quot;height&quot;, height+200)
+            .append(&quot;g&quot;)
+            .attr(&quot;transform&quot;, &quot;translate(&quot; + (width+200) / 2 + &quot;,&quot; + (height+200) / 2 + &quot;)&quot;);
+
+        svg.append(&quot;g&quot;).selectAll(&quot;path&quot;)
+            .data(chord.groups)
+            .enter().append(&quot;path&quot;)
+            .attr(&quot;class&quot;, &quot;arc&quot;)
+            .style(&quot;fill&quot;, function(d) {
+                return d.index &lt; 4 ? &#39;#444444&#39; : fill(d.index);
+            })
+            .attr(&quot;d&quot;, d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
+            .on(&quot;mouseover&quot;, fade(.1))
+            .on(&quot;mouseout&quot;, fade(.7));
+
+        svg.append(&quot;g&quot;)
+            .attr(&quot;class&quot;, &quot;chord&quot;)
+            .selectAll(&quot;path&quot;)
+            .data(chord.chords)
+            .enter().append(&quot;path&quot;)
+            .attr(&quot;d&quot;, d3.svg.chord().radius(innerRadius))
+            .style(&quot;fill&quot;, function(d) { return fill(d.target.index); })
+            .style(&quot;opacity&quot;, 0.7);
+
+        svg.append(&quot;g&quot;).selectAll(&quot;.arc&quot;)
+            .data(chord.groups)
+            .enter().append(&quot;svg:text&quot;)
+            .attr(&quot;dy&quot;, &quot;.35em&quot;)
+            .attr(&quot;text-anchor&quot;, function(d) { return ((d.startAngle + d.endAngle) / 2) &gt; Math.PI ? &quot;end&quot; : null; })
+            .attr(&quot;transform&quot;, function(d) {
+              return &quot;rotate(&quot; + (((d.startAngle + d.endAngle) / 2) * 180 / Math.PI - 90) + &quot;)&quot;
+                  + &quot;translate(&quot; + (r1 - 15) + &quot;)&quot;
+                  + (((d.startAngle + d.endAngle) / 2) &gt; Math.PI ? &quot;rotate(180)&quot; : &quot;&quot;);
+            })
+            .text(function(d) {
+                return data.labels[d.index];
+            });
+
+        // Returns an event handler for fading a given chord group.
+        function fade(opacity) {
+            return function(g, i) {
+            svg.selectAll(&quot;.chord path&quot;)
+                .filter(function(d) { return d.source.index != i &amp;&amp; d.target.index != i; })
+                .transition()
+                .style(&quot;opacity&quot;, opacity);
+            };
+        }
+    });</code></pre></div>
+
+<p>That’s it. You are ready to embed your new visualization to the GoodData Dashboard. If you are not sure how to do it read the <a href="/tutorial/embedding-custom-visualization-into-dashboard">embedding tutorial</a>. </p>
+
+
+  
+  <div class="section-nav">
+  <div class="left align-right">
+    
+      <span class="prev disabled">Back</span>
+    
+  </div>
+  <div class="right align-left">
+    
+      <span class="next disabled">Next</span>
+    
+  </div>
+  <div class="clear"></div>
+</div>
+
+</div>
+
+      <hr>
+
+<div class="footer" style="text-align: center; font-size: 80%;">
+<p>&copy; GoodData 2014</p>
+<p>Pictograms used on this page are from <a href="http://www.defaulticon.com/">http://www.defaulticon.com/</a> created by <a href="http://www.interactivemania.com/">http://www.interactivemania.com/</a></p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="https://developer.gooddata.com/themes/site_themes/developer2012/js/jquery.js?v=1"></script>
+    <script src="http://sdk.gooddata.com/gooddata-js/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+                     var _gaq = _gaq || [];
+                     _gaq.push(['_setAccount', 'UA-3766725-7']);
+                     _gaq.push(['_trackPageview']);
+
+                    (function() {
+                      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                       })();
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>GoodData Javascript SDK</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://developer.gooddata.com/favicon.ico" rel="shortcut icon">
+    <!-- Le styles -->
+    <link href="http://sdk.gooddata.com/gooddata-js/css/bootstrap.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/syntax.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="http://sdk.gooddata.com/gooddata-js/css/style.css" rel="stylesheet">
+
+<style>
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+    background: url(http://sdk.gooddata.com/gooddata-js/images/background.png) fixed left top no-repeat;
+    background-size: 111px 245px;
+
+  }
+
+a.topics {margin-top: 7px; font-size: 16px;}
+
+  /* Custom container */
+  .container-narrow {
+    margin: 45px auto;
+    max-width: 700px;
+  }
+  .container-narrow > hr {
+    margin: 45px 0;
+  }
+
+  /* Main marketing message and sign up button */
+  .jumbotron {
+    padding: 60px 0;
+    text-align: center;
+  }
+  .jumbotron h1 {
+    font-size: 48px;
+    line-height: 1;
+  }
+  .jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+
+  /* Supporting marketing content */
+  .marketing {
+    margin: 60px 0;
+  }
+  .marketing p + h4 {
+    margin-top: 28px;
+  }
+
+  img.centered {
+    margin: 30px auto;
+    display: block;
+/*        border: 1px solid red;*/
+  }
+
+
+</style>
+
+</head>
+  <body>
+    <div>
+        <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="navbar-inner">
+            <div style="margin-left: 100px;">
+            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="http://sdk.gooddata.com/gooddata-js">
+                <img src="http://sdk.gooddata.com/gooddata-js/images/header-logo.png" alt="GoodData JS SDK" width="24" height="24">
+            GoodData<span style="color: #F0E040;">JS
+            </a>
+            <div class="nav-collapse collapse container">
+                <ul class="nav">
+                    
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//getting-started">Get Started</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//tutorials">Build Visualization</a>
+                    </li>
+                    
+                    <li>
+                        <a href="http://sdk.gooddata.com/gooddata-js//api">API</a>
+                    </li>
+                    
+                    <li>
+                        <a href="https://developer.gooddata.com/forum" target="_blank">Forum</a>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+        </div>
+      <div class="navbar navbar-inverse navbar-fixed-top">
+  <div class="navbar-inner">
+    <div style="margin-left: 100px;">
+      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="brand" href="http://sdk.gooddata.com/gooddata-js">
+      <img src="http://sdk.gooddata.com/gooddata-js/images/header-logo.png" alt="GoodData Labs" width="24" height="24">
+      GoodData<span style="color: #F0E040;">JS
+</a>
+      <div class="nav-collapse collapse container">
+        <ul class="nav">
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/">Home</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/getting-started">Get Started</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/tutorials">Build Visualization</a>
+          </li>
+          <li class="">
+            <a href="http://sdk.gooddata.com/gooddata-js/api">API</a>
+          </li>
+		<li class="">
+            <a href="https://developer.gooddata.com/forum" target="_blank">Forum</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-narrow" style="margin-top: 40px;">
+  <h2>Get the Data from GoodData Project</h2>
+  <p>Open your GoodData Project and create a <strong>metrics</strong> that you want to visualize. You will need the metrics identifier (not URI!) to specify object for export. The easiest way to get the metric identifier is using our “grey pages”. Go to the </p>
+
+<p><code>https://secure.gooddata.com/gdc/md/{project-id}/query/metrics</code> </p>
+
+<p>then find your metric, open it and find “identifier” key and use it’s value (store it somewhere for later usage in your Javascript code). You can definitely use API directly to get metrics identifiers.</p>
+
+<p>We are going to use following metrics:</p>
+
+<p><strong>Won Amount</strong>: atX3I1GYg85J<br />
+<strong># Activities</strong> : acKjadJIgZUN<br />
+<strong># Opportunities</strong>: afdV48ABh8CN<br />
+<strong># Won Opportunities</strong>: abf0d42yaIkL  </p>
+
+<p>We want to see the comparison of our sales reps based on metrics above. Select the sales rep <strong>attribute</strong> identifier as well from the Project:</p>
+
+<p><strong>Opportunity Owner</strong>:  label.opp_owner.id.name</p>
+
+<p>Open the javascript file (<a href="link-to-example-package">example file</a> you’ve downloaded) now and edit the first 10 rows. Fill in your Project ID, Credentials, Metrics and Attribute identifiers. See the code below:</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">var projectId = &#39;PROJECT_ID&#39;, 
+      user = &#39;USERNAME,
+	    passwd = &#39;PASSWORD&#39;;
+
+// Report elements identifiers from which we execute a GD report
+var metric1 = &#39;METRIC-IDENTIFIER&#39;,
+      metric2 = &#39;METRIC-IDENTIFIER&#39;,
+      metric3 = &#39;METRIC-IDENTIFIER&#39;,
+      metric4 = &#39;METRIC-IDENTIFIER&#39;,
+      attr1 = &#39;ATTRIBUTE-IDENTIFIER&#39;;</code></pre></div>
+
+<p>Now, it is all about the Javascript methods that call GoodData APIs - authenticate and extract the data based on provided metrics and attributes. See the following script, especially <code>gooddata.user.login</code> method and <code>gooddata.execution.getData</code>.</p>
+
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript">var elements = [attr1, metric1, metric2, metric3, metric4];
+
+// Insert info label
+$(&#39;body&#39;).append(&#39;&lt;div class=&quot;login-loader&quot;&gt;Logging in...&lt;/div&gt;&#39;);
+
+gooddata.user.login(user, passwd).then(function() {
+
+    $(&#39;div.login-loader&#39;).remove();
+    $(&#39;body&#39;).append(&#39;&lt;div class=&quot;loading&quot;&gt;Loading data...&lt;/div&gt;&#39;);
+
+    // Ask for data for the given metric and attributes from the GoodSales project
+    gooddata.execution.getData(projectId, elements).then(function(dataResult) {
+        // Yay, data arrived
+
+        // Remove loading labels
+        $(&#39;div.loading&#39;).remove();</code></pre></div>
+
+<p>You have successfully extracted the data from GoodData Platform and now having all data in the browser, you are able to use the D3.js (or any other viz framework) to draw the custom visualization. The structure that is being returned by the <code>getData()</code> method is an object. This object contains of two arrays:</p>
+
+<ul>
+  <li>headers: array of objects with header information and data</li>
+  <li>rawData: array with the data for each row</li>
+  <li>isLoaded: parameter that you can check for better handling (true/false)</li>
+</ul>
+
+<p><img src="/images/posts/data-object.png" alt="Data Object Structure" /></p>
+
+<p>Basically, it is up to you how to process the data that are extracted from the GoodData Platform with the SDK. Anyway, we will show you multiple examples to inspire you.</p>
+
+
+  
+  <div class="section-nav">
+  <div class="left align-right">
+    
+      <a href="http://sdk.gooddata.com/gooddata-js/tutorials/" class="prev">
+        Back
+      </a>
+    
+  </div>
+  <div class="right align-left">
+    
+      <a href="http://sdk.gooddata.com/gooddata-js/tutorials/#set-up-viz/" class="next">
+        Next
+      </a>
+    
+  </div>
+  <div class="clear"></div>
+</div>
+
+</div>
+
+      <hr>
+
+<div class="footer" style="text-align: center; font-size: 80%;">
+<p>&copy; GoodData 2014</p>
+<p>Pictograms used on this page are from <a href="http://www.defaulticon.com/">http://www.defaulticon.com/</a> created by <a href="http://www.interactivemania.com/">http://www.interactivemania.com/</a></p>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+     <script src="https://developer.gooddata.com/themes/site_themes/developer2012/js/jquery.js?v=1"></script>
+    <script src="http://sdk.gooddata.com/gooddata-js/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+
+                     var _gaq = _gaq || [];
+                     _gaq.push(['_setAccount', 'UA-3766725-7']);
+                     _gaq.push(['_trackPageview']);
+
+                    (function() {
+                      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+                       })();
+
+    </script>
+  </body>
+</html>

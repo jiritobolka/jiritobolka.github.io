@@ -1,0 +1,61 @@
+---
+layout: default
+title: GoodData Javascript SDK - Building My First Visualization
+---
+
+<div class="container-narrow">
+
+<h1>Building My First Visualization</h1>
+
+<p>Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also go directly to the examples folder in your downloaded library/repository to check all available prebuilt examples.</p>   
+
+Follow the main three steps to deliver a custom visualization:
+
+<a name="get-data"></a>
+<h3>1. Get the data from the GoodData Platform</h3>
+
+<p>Getting the data from the GoodData Platform is a critical part. Since this step will be the same for every data visualization you have to know the structure of the data that is extracted from GoodData.</p>
+
+<p>Sometimes, when the data visualization library requires more complicated input, you have to transform your data to fit this requirements</p>
+
+<img src="/images/posts/transform-data.png" alt="Data Transformation" width="650" />
+
+<br />
+<a href="/tutorial/get-the-data-from-gooddata-platform">Learn the details >></a>
+
+<a name="set-up-viz"></a>
+<h3>2. Set up the visualization</h3>
+
+<p>The second step is always to set up the visualization itself. It is always unique and depends on which visualization library you are using.</p>
+
+<p>The best way to learn how to set up individual Visualization is to explore our <a href="#example-library">example library</a> below. Or definitely read other related <a href="">D3.js</a> or <a href="">dc.js</a> tutorials. </p>
+
+<a href="/tutorial/setting-up-d3">Learn how to setup (d3.js) >></a>
+
+<a name="embed-to-dashboard"></a>
+<h3>3. Embed the visualization to the dashboard</h3>
+
+<p>The final step is to embed the visualization to your GoodData Project.</p>
+
+<p>This task is easy, you can embed the custom visualization in the same way as any other html content. Anyway, since it is a javascript running outside of the GoodData Platform, there are several limitations and requirements. We strongly recommend you to go through the <a href="/tutorial/embedding-custom-visualization-into-dashboard">details</a>.</p>
+
+<a href="/tutorial/embedding-custom-visualization-into-dashboard">Learn how to embed the visualization >></a>
+
+<h4>That's it! You are ready!</h4>
+
+<p>You can know check out all examples we have prepared for you. You can play around or even create new examples and share it with the community.</p>
+
+<a name="example-library"></a>
+<h2>Explore More Examples</h2>
+
+  <ul class="posts">
+    {% for post in site.posts %}
+      {% if post.categories contains 'example' %}
+        <div>
+          <a href="{{ site.url }}{{ post.url }}"><h3>{{ post.title }}</h3></a>
+          <div>{{ post.perex }}</div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
