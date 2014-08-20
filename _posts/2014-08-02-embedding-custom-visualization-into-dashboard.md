@@ -4,8 +4,8 @@ title:  "Embedding Viz into the Dashboard"
 date:   2014-08-02 11:00:00
 categories: tutorial
 highlighter: true
-prev_section: tutorials
-next_section: tutorials/#examples
+prev_section: build-visualization
+next_section: build-visualization/#examples
 perex: learn how to setup D3 visualization.
 ---
 

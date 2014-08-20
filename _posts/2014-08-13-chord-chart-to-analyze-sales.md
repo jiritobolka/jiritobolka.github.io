@@ -4,6 +4,8 @@ title:  "Visualize Sales Data using Chord Chart"
 date:   2014-08-13 11:00:00
 categories: example
 highlighter: true
+prev_section: example/building-parallel-coordinates
+next_section: example/using-dc-js-with-gooddata
 perex: Learn how to pull the data from GoodData and visualize them in D3.js Chord chart 
 ---
 

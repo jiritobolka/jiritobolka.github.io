@@ -4,8 +4,8 @@ title:  "Get the Data from GoodData Project"
 date:   2014-08-04 11:00:00
 categories: tutorial
 highlighter: true
-prev_section: tutorials
-next_section: tutorials/#set-up-viz
+prev_section: build-visualization
+next_section: build-visualization/#set-up-viz
 perex: learn how to get the data from GoodData Platform.
 ---
 

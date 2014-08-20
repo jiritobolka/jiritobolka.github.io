@@ -4,8 +4,8 @@ title:  "Setting Up D3.js Visualization"
 date:   2014-08-03 11:00:00
 categories: tutorial
 highlighter: true
-prev_section: tutorials/
-next_section: tutorials/#embed-to-dashboard
+prev_section: build-visualization
+next_section: build-visualization/#embed-to-dashboard
 perex: Setting up D3 viz with our data from GoodData Platform.
 ---
 

@@ -4,7 +4,7 @@ title:  "Building Parallel Coordinates"
 date:   2014-08-15 11:00:00
 categories: example
 highlighter: true
-prev_section: tutorials/
+prev_section: build-visualization/
 next_section: example/chord-chart-to-analyze-sales
 perex: Right place to start building amazing custom data visualizations.
 ---
