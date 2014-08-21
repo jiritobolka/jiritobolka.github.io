@@ -9,7 +9,7 @@ next_section: example/chord-chart-to-analyze-sales
 perex: Right place to start building amazing custom data visualizations.
 ---
 
-Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also <a href=”link-to-download-package”>download the complete example</a>.   
+Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also <a href="link-to-download-package">download the complete example</a>.   
 
 What we are going to build is the visualization that is called Parallel Coordinates. It shows one attribute measured by multiple metrics. Imagine a following use case:
 
@@ -20,14 +20,6 @@ The result might looks like this:
 ![Parallel Coordinates graph](/images/posts/parallel-coordinates.png)
 
 Remember that each line shows individual sales rep and each axis shows one metric that is used to measure sales representatives. We have a use case so let's build it!
-
-To Run the Visualization directly:
-
-1. [Download the example](link-to-the package) to your working directory
-2. Edit your credentials and select your metrics/attributes you want to use in visualization 
-3. Run the `grunt dev` command in you javascript SDK repository
-4. Go to the following URL:  https://localhost:8443/parallel-coordinates/ to see it in action
-5. Optionaly you can embed it to your dashboard. Some extra steps needs to be done to achieve it.
 
 If you are totally new to the GoodData Visualization SDK, let's follow the steps in more detail. We will start with getting the data from GoodData Project.
 

@@ -17,9 +17,9 @@ More info about [setting up D3.js Chord chart](http://www.gghh.name/dibtp/?p=234
 
 ### 1) Get the data
 
-First of all you have to select metric and attributes that you want to use in your visualization. 
+First of all select metric and attributes that you want to use in your visualization. 
 
-Remember that you need to specify an object identifier. The example can be `label.opp_owner.id.name` for attribute or `afSEwRwdbMeQ` for fact. 
+Remember that you must specify an object identifier. The example can be `label.opp_owner.id.name` for attribute or `afSEwRwdbMeQ` for fact. 
 
 See the example output below. The data is exported in a raw format. Data is not cross-tabulated. Let's see how it looks in Javascript. 
 

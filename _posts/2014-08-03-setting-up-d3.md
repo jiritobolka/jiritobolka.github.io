@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Setting Up D3.js Visualization"
+title:  "Setting Up Custom Visualization"
 date:   2014-08-03 11:00:00
 categories: tutorial
 highlighter: true
@@ -9,12 +9,16 @@ next_section: build-visualization/#embed-to-dashboard
 perex: Setting up D3 viz with our data from GoodData Platform.
 ---
 
-Now, it's time to start building the D3 visualization itself. If you are an expert in building the D3 custom visualization, this article will be super easy for you! We are going to draw the Parallel Coordinates chart to compare one attribute across four different metrics. 
+You extracted all the you need. Nice! It's time to start building the visualization itself. If you are an expert in building the D3 custom visualization, this article will be super easy for you! We are going to draw the Parallel Coordinates chart to compare one attribute across four different metrics. Other option is to use your favourite chart library.
 
-If you have some Visualization prepared, you can skip this and continue with [embedding process](link-to-next-chapter).
+If you have the visualization already prepared, you can skip this and continue with [embedding](/tutorial/embedding-custom-visualization-into-dashboard).
+
+If you are not familiar with the [D3.js](http://d3js.org/), read [the documentation](https://github.com/mbostock/d3/wiki) first.
+
+### Parallel Coordinates
+
 
 {% highlight js %}
-
 var m = [30, 10, 10, 10],
 	w = 960 - m[1] - m[3],
     h = 500 - m[0] - m[2];
@@ -38,7 +42,6 @@ var svg = d3.select("body").append("svg:svg")
 The main method that draw the visualization.
 
 {% highlight js %}
-
 // the main method that extract data and draw the visualization
 var parallel = function(dataResult) {
 
