@@ -21,9 +21,39 @@ The result might looks like this:
 
 Remember that each line shows individual sales rep and each axis shows one metric that is used to measure sales representatives. We have a use case so let's build it!
 
-If you are totally new to the GoodData Visualization SDK, let's follow the steps in more detail. We will start with getting the data from GoodData Project.
+Let's log in and download the data.
 
-!!! GETTING THE DATA
+{% highlight js %}
+
+var projectId = 'project-id', 
+    user = 'username@company.com',
+	passwd = 'password';
+
+// Report elements identifiers from which we execute a GD report
+var metric1 = 'atX3I1GYg85J',
+    metric2 = 'acKjadJIgZUN',
+    metric3 = 'afdV48ABh8CN',
+    metric4 = 'abf0d42yaIkL',
+    attr1 = 'label.opp_owner.id.name';
+    
+var elements = [attr1, metric1, metric2, metric3, metric4];
+
+// Insert info label
+$('body').append('<div class="login-loader">Logging in...</div>');
+
+gooddata.user.login(user, passwd).then(function() {
+
+    $('div.login-loader').remove();
+    $('body').append('<div class="loading">Loading data...</div>');
+
+    // Ask for data for the given metric and attributes from the GoodSales project
+    gooddata.execution.getData(projectId, elements).then(function(dataResult) {
+        // Yay, data arrived
+
+        // Remove loading labels
+        $('div.loading').remove();
+
+{% endhighlight %}
 
 Now, it's time to start building the D3 visualization itself. If you are an expert in building the D3 custom visualization, this article will be super easy for you! We are going to draw the Parallel Coordinates chart to compare one attribute across four different metrics. 
 
