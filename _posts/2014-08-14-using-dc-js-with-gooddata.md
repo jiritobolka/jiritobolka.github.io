@@ -10,7 +10,9 @@ perex: Learn how to pull the data from GoodData and visualize them in D3.js Chor
 
 Talking about visualization frameworks and libraries the [dc.js](http://dc-js.github.io/dc.js/) together with [Crossfilter](https://github.com/square/crossfilter/wiki/API-Reference) is great combo on the top of D3.js framework. There is a solid amount of examples around the internet so that you can start playing around immediately.
 
-We took the example from the dc.js homepage which looks pretty cool and is [greatly and fully described](http://dc-js.github.io/dc.js/docs/stock.html). Anyway, the original example is based on static CSV file. What is really cool? You can quite easily connect it to the GoodData Platform, get the data from your Project and use the visualization embedded to your dashboard. This is what we called **Visualization Extensibility**.
+I took the example from the dc.js homepage which looks pretty cool and is [greatly and fully described](http://dc-js.github.io/dc.js/docs/stock.html) and try to bring it to the next level. What I did? The original example is based on static CSV file. What is really cool? You can quite easily connect it to the GoodData Platform, get the data from your Project and use the visualization embedded to your dashboard. This is what we called **Visualization Extensibility**.
+
+The potential is huge! If you miss some visualization, just build it and embed it directly to the GoodData Project!
 
 <img src="/images/posts/dc-js-example.png" alt="Dynamic Visualizations" />
 
@@ -23,7 +25,7 @@ We took the example from the dc.js homepage which looks pretty cool and is [grea
 
 ## Integration
 
-The main change is again in the beggining of the script, you basically specify which metrics are being extracted from the GoodData:
+The main change is in the beggining of the script, you basically specify which metrics are being extracted from the GoodData:
 
 {% highlight js %}
 
@@ -86,8 +88,7 @@ gooddata.user.login(user, passwd).then(function() {
     		
 {% endhighlight %}
 
+The rest of the script is basically the same as in the original example so that you can read the details. Only change is the name on keys in the objects because the Javascript SDK returns you numeric keys so the names are different. 
 
-
-TBD
-
+[Download the full example]() to start playing around!
 
