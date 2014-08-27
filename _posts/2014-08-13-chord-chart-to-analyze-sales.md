@@ -13,7 +13,7 @@ Let's learn how to build [chord chart](http://bl.ocks.org/mbostock/4062006#index
 
 ![Chord Chart](/images/posts/chord-chart.png)
 
-More info about [setting up D3.js Chord chart](http://www.gghh.name/dibtp/?p=234).
+More info about [setting up D3.js Chord chart](http://www.gghh.name/dibtp/?p=234). You can also [download complete example](https://developer.gooddata.com/downloads/d3/chord-chart.zip).
 
 ### 1) Get the data
 

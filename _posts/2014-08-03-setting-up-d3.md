@@ -13,9 +13,13 @@ You extracted all the data you need. Nice! It's time to start building the visua
 
 If you have the visualization already prepared, you can skip this and continue with [embedding](/tutorial/embedding-custom-visualization-into-dashboard).
 
-If you are not familiar with the [D3.js](http://d3js.org/), read [the documentation](https://github.com/mbostock/d3/wiki) first.
+If you are not familiar with the [D3.js](http://d3js.org/), read [the documentation](https://github.com/mbostock/d3/wiki) first. 
 
-### Parallel Coordinates
+You can also check out end-to-end [Parallel coordinates tutorial](/example/building-parallel-coordinates). 
+
+### Parallel Coordinates - d3.js
+
+See the comments in the code for better understanding.
 
 {% highlight js %}
 var m = [30, 10, 10, 10],
@@ -38,7 +42,7 @@ var svg = d3.select("body").append("svg:svg")
     	.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 {% endhighlight %}
 
-The main method that draw the visualization.
+Below is the main method that draw the visualization.
 
 {% highlight js %}
 // the main method that extract data and draw the visualization

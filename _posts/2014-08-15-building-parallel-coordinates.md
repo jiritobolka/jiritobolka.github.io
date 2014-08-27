@@ -9,19 +9,19 @@ next_section: example/chord-chart-to-analyze-sales
 perex: Right place to start building amazing custom data visualizations.
 ---
 
-Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also <a href="link-to-download-package">download the complete example</a>.   
+Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also <a href="https://developer.gooddata.com/downloads/d3/parallel-coordinates.zip">download the complete example</a>.   
 
 What we are going to build is the visualization that is called Parallel Coordinates. It shows one attribute measured by multiple metrics. Imagine a following use case:
 
-“Chief Revenue Officer wants to compare Sales Reps not only by the Revenue but also by their activity and number of Opportunities and one other metrics.”
+“Chief Revenue Officer wants to compare Sales Reps not only by the **Revenue** but also by their **activity** and **number of Opportunities** and one other metrics.”
 
 The result might looks like this:
 
 ![Parallel Coordinates graph](/images/posts/parallel-coordinates.png)
 
-Remember that each line shows individual sales rep and each axis shows one metric that is used to measure sales representatives. We have a use case so let's build it!
+Remember that each line shows individual sales rep and each axis shows one metric that is used to measure sales representatives. We have a use case, so let's build it!
 
-Let's log in and download the data.
+Let's log in and download the data. I already have those metrics ready in the GoodData. Now I need to select them and use them in the visualization.
 
 {% highlight js %}
 
@@ -56,8 +56,6 @@ gooddata.user.login(user, passwd).then(function() {
 {% endhighlight %}
 
 Now, it's time to start building the D3 visualization itself. If you are an expert in building the D3 custom visualization, this article will be super easy for you! We are going to draw the Parallel Coordinates chart to compare one attribute across four different metrics. 
-
-If you have some Visualization prepared, you can skip this and continue with [embedding process](link-to-next-chapter).
 
 {% highlight js %}
 
@@ -214,5 +212,5 @@ Finalize the dragging and transition effects.
 
 {% endhighlight %}
 
-That's all. [Download the full example](link-to-the-example) to try it out easily.
+That's all. [Download the full example](https://developer.gooddata.com/downloads/d3/parallel-coordinates.zip) to try it out easily.
 

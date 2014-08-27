@@ -22,7 +22,7 @@ Unfortunately, there is some limitation:
 - Whitelabeling feature is activated to my Organization (I have custom domain i.e. _analytics.mycompany.com_)  
 - I'm hosting the code in my storage (GoodData doesn't provide hosting solution)
 
-We allow [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) per request for your Organization.
+We allow [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) per request for your Organization. Feel free to ask our [Support](http://support.gooddata.com) and they will get it done for you.
 
 ### Set up on your side:
 
