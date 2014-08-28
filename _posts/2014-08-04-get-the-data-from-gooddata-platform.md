@@ -6,27 +6,27 @@ categories: tutorial
 highlighter: true
 prev_section: build-visualization
 next_section: build-visualization/#set-up-viz
-perex: learn how to get the data from GoodData Platform.
+perex: learn how to get data from GoodData Platform.
 ---
 
-Open your GoodData Project and create a **metrics** that you want to visualize. You will need the metrics identifier (not URI!) to specify object for export. The easiest way to get the metric identifier is using our "grey pages". Go to the 
+Open your GoodData Project and create the metrics that you want to visualize. You will need identifiers (not URIs!) to specify the objects to export. The easiest way to get the metric identifier is to use our grey pages here: 
 
 `https://secure.gooddata.com/gdc/md/{project-id}/query/metrics` 
 
-then find your metric, open it and find “identifier” key and use it's value (store it somewhere for later usage in your Javascript code). You can definitely use API directly to get metrics identifiers.
+navigate to your metric, open it and locate its identifier key and copy its value. You can also use API directly to get metric identifiers.
 
-We are going to use following metrics:
+In our example we want to compare our sales reps using the following metrics:
 
 **Won Amount**: atX3I1GYg85J  
 **# Activities** : acKjadJIgZUN  
 **# Opportunities**: afdV48ABh8CN  
 **# Won Opportunities**: abf0d42yaIkL  
 
-We want to see the comparison of our sales reps based on metrics above. Select the sales rep **attribute** identifier as well from the Project:
+Select the sales rep attribute identifier from the project:
 
 **Opportunity Owner**:  label.opp_owner.id.name
 
-Open the javascript file ([example file](link-to-example-package) you've downloaded) now and edit the first 10 rows. Fill in your Project ID, Credentials, Metrics and Attribute identifiers. See the code below:
+Now, open the javascript [file](link-to-example-package) that you've downloaded and edit the first 10 rows. Fill in your project ID, credentials, metrics and attribute identifiers. See the code below:
 
 {% highlight javascript %}
 
@@ -43,7 +43,9 @@ var metric1 = 'METRIC-IDENTIFIER',
 
 {% endhighlight %}
 
-Now, it is all about the Javascript methods that call GoodData APIs - authenticate and extract the data based on provided metrics and attributes. See the following script, especially `gooddata.user.login` method and `gooddata.execution.getData`.
+The next step is all about the Javascript methods that call the GoodData APIs to authenticate and extract the data based on the metrics and attributes from the code above. 
+
+See the following script, particularly the `gooddata.user.login` and `gooddata.execution.getData` methods.
 
 {% highlight javascript %}
 var elements = [attr1, metric1, metric2, metric3, metric4];
@@ -65,13 +67,13 @@ gooddata.user.login(user, passwd).then(function() {
 
 {% endhighlight %}
 
-You have successfully extracted the data from GoodData Platform and now having all data in the browser, you are able to use the D3.js (or any other viz framework) to draw the custom visualization. The structure that is being returned by the `getData()` method is an object. This object contains of two arrays:
+You have successfully extracted the data from GoodData Platform and now have all data that you have specified in the browser. You can now use the D3.js (or any other viz framework) to create the custom visualization. The structure that the `getData()` method returns to you is an object. This object contains of two arrays:
 
-- headers: array of objects with header information and data
-- rawData: array with the data for each row
-- isLoaded: parameter that you can check for better handling (true/false)
+- headers: array of objects with header information and data  
+- rawData: array with the data for each row  
+- isLoaded: parameter that you can check for better handling (true/false)  
 
 ![Data Object Structure](/images/posts/data-object.png)
 
-Basically, it is up to you how to process the data that are extracted from the GoodData Platform with the SDK. Anyway, we will show you multiple examples to inspire you.
+Perfect. Your data is extracted from the GoodData Platform with the SDK, and now it's up to you how you transform it. We have created [multiple examples](link-to-examples) to inspire you.
 

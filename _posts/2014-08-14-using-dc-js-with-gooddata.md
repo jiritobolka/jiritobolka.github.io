@@ -5,7 +5,7 @@ date:   2014-08-14 11:00:00
 categories: example
 highlighter: true
 prev_section: /example/chord-chart-to-analyze-sales
-perex: Learn how to pull the data from GoodData and visualize them in D3.js Chord chart 
+perex: Learn how to pull data from GoodData and visualize it in D3.js Chord chart 
 ---
 
 Talking about visualization frameworks and libraries the [dc.js](http://dc-js.github.io/dc.js/) together with [Crossfilter](https://github.com/square/crossfilter/wiki/API-Reference) is great combo on the top of D3.js framework. There is a solid amount of examples around the internet so that you can start playing around immediately.

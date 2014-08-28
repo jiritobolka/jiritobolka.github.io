@@ -6,7 +6,7 @@ categories: example
 highlighter: true
 prev_section: build-visualization/
 next_section: example/chord-chart-to-analyze-sales
-perex: Right place to start building amazing custom data visualizations.
+perex: The right place to start building amazing custom data visualizations.
 ---
 
 Let's learn how to create a custom visualization with our Javascript Visualization SDK and embed it to your dashboard. The tutorial is divided into several logical parts based on steps that you have to accomplish. You can also <a href="https://github.com/gooddata/gooddata-js/tree/develop/examples/parallel-coordinates">explore the complete example</a> that is also available in your forked repository (_examples_ folder)   
