@@ -1,15 +1,24 @@
+@font-face {
+  font-family: "Avenir Black";
+  src: url(/css/fonts/AvenirLTStd-Black.otf) format("truetype");
+}
+
+body {
+	font-family: "Avenir", Arial, sans-serif;
+}
+
 div.divider {
-	background-color: #000000; 
-	padding: 5px 0px; 
+	background-color: #f1f1f1; 
+	padding: 10px 0px; 
 	text-align: center;
 }
 
 div.divider h2 {
 	margin: auto; 
 	text-align: center;
-	color: #FFFFFF;
+	color: #000000;
 	font-weight: normal;
-	font-family: "AvenirBlack", Arial, sans-serif;
+	font-family: "Avenir Black", Arial, sans-serif;
 	font-size: 1.75em;
 }
 
