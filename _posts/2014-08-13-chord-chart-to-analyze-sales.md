@@ -11,7 +11,7 @@ perex: Learn how to pull data from GoodData and visualize them in D3.js Chord ch
 
 Let's learn how to build [chord chart](http://bl.ocks.org/mbostock/4062006#index.html) that shows you how each sales person contributed to the quarter sales results:
 
-![Chord Chart](/images/posts/chord-chart.png)
+<img src="/images/posts/chord-chart.png" width="650px" alt="Chord Chart"/>
 
 More info about [setting up D3.js Chord chart](http://www.gghh.name/dibtp/?p=234). You also [find complete example](https://github.com/gooddata/gooddata-js/tree/develop/examples/d3-data-viz).
 
@@ -19,7 +19,7 @@ More info about [setting up D3.js Chord chart](http://www.gghh.name/dibtp/?p=234
 
 First of all select metric and attributes that you want to use in your visualization. 
 
-Remember that you must specify an object identifier. The example can be `label.opp_owner.id.name` for attribute or `afSEwRwdbMeQ` for fact. 
+Remember that you must specify an object identifier. The example can be `label.opp_owner.id.name` for attribute (Opportunity Owner) or `afSEwRwdbMeQ` for fact (Sales Amount). 
 
 See the example output below. The data is exported in a raw format. Data is not cross-tabulated. Let's see how it looks in Javascript. 
 

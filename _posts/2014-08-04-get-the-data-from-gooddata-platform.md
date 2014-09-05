@@ -15,31 +15,31 @@ Open your GoodData Project and create the metrics that you want to visualize. Yo
 
 navigate to your metric, open it and locate its identifier key and copy its value. You can also use API directly to get metric identifiers.
 
-In our example we want to compare our sales reps using the following metrics:
+### GoodData Project
 
-**Won Amount**: atX3I1GYg85J  
-**# Activities** : acKjadJIgZUN  
-**# Opportunities**: afdV48ABh8CN  
-**# Won Opportunities**: abf0d42yaIkL  
+_If you don't have a GoodData project, you can create one using this one page project creation template - [Ruby SDK Script](link-to-script)_
+
+We want to see open and close quote of Nasdaq during the time. Let's use following metrics:
+
+**open**: aiAY9GSReqiT  
+**close** : aHZY9nzNeg3f    
 
 Select the sales rep attribute identifier from the project:
 
-**Opportunity Owner**:  label.opp_owner.id.name
+**Year (Date)**: date.aag81lMifn6q  
 
-Now, open the javascript [file](link-to-example-package) that you've downloaded and edit the first 10 rows. Fill in your project ID, credentials, metrics and attribute identifiers. See the code below:
+The first lines of the code specify the project id, user credentials and report elements. By report elements we mean metrics and attributes.
 
 {% highlight javascript %}
 
-var projectId = 'PROJECT_ID', 
-      user = 'USERNAME,
-	    passwd = 'PASSWORD';
+	var projectId = 'project-id', 
+		user = 'username@company.com',
+		passwd = 'password';
 
-// Report elements identifiers from which we execute a GD report
-var metric1 = 'METRIC-IDENTIFIER',
-      metric2 = 'METRIC-IDENTIFIER',
-      metric3 = 'METRIC-IDENTIFIER',
-      metric4 = 'METRIC-IDENTIFIER',
-      attr1 = 'ATTRIBUTE-IDENTIFIER';
+	// Report elements identifiers from which we execute a GD report
+	var open = 'aiAY9GSReqiT',
+		close = 'aHZY9nzNeg3f',
+		year = 'date.aag81lMifn6q';
 
 {% endhighlight %}
 
@@ -48,7 +48,7 @@ The next step is all about the Javascript methods that call the GoodData APIs to
 See the following script, particularly the `gooddata.user.login` and `gooddata.execution.getData` methods.
 
 {% highlight javascript %}
-var elements = [attr1, metric1, metric2, metric3, metric4];
+var elements = [year, open, close];
 
 // Insert info label
 $('body').append('<div class="login-loader">Logging in...</div>');
@@ -57,14 +57,14 @@ gooddata.user.login(user, passwd).then(function() {
 
     $('div.login-loader').remove();
     $('body').append('<div class="loading">Loading data...</div>');
+{% endhighlight %}
 
-    // Ask for data for the given metric and attributes from the GoodSales project
-    gooddata.execution.getData(projectId, elements).then(function(dataResult) {
-        // Yay, data arrived
+Here we go. This is **the key** part. The `gooddata.execution.getData` method executes report and gives you data. 
 
-        // Remove loading labels
-        $('div.loading').remove();
+{% highlight javascript %}
 
+   gooddata.execution.getData(projectId, elements).then(function(dataResult) {
+   
 {% endhighlight %}
 
 You have successfully extracted the data from GoodData Platform and now have all data that you have specified in the browser. You can now use the D3.js (or any other viz framework) to create the custom visualization. The structure that the `getData()` method returns to you is an object. This object contains of two arrays:
@@ -73,7 +73,9 @@ You have successfully extracted the data from GoodData Platform and now have all
 - rawData: array with the data for each row  
 - isLoaded: parameter that you can check for better handling (true/false)  
 
+The rawData array returns the data in in the same column order as you specified in the element variable on the top of your script. 
+
 ![Data Object Structure](/images/posts/data-object.png)
 
-Perfect. Your data is extracted from the GoodData Platform with the SDK, and now it's up to you how you transform it. We have created [multiple examples](link-to-examples) to inspire you.
+Perfect. Your data is extracted from the GoodData Platform with the SDK, and now it's up to you how you transform it. We have created [multiple examples](/build-visualization/#examples) to inspire you.
 

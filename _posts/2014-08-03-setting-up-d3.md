@@ -6,170 +6,116 @@ categories: tutorial
 highlighter: true
 prev_section: build-visualization
 next_section: build-visualization/#embed-to-dashboard
-perex: Setting up D3 viz with our data from GoodData Platform.
+perex: Setting up Google Graph viz with our data from GoodData Platform.
 ---
 
-You extracted all the data you need. Nice! It's time to start building the visualization itself. If you are an expert in building the D3 custom visualization, this article will be super easy for you! We are going to draw the Parallel Coordinates chart to compare one attribute across four different metrics. Other option is to use your favourite chart library.
+It's time to start building the visualization itself. If you are an expert in building the custom visualization, this article will be super easy for you! We are going to draw the **line chart** using Google Charts library.
 
 If you have the visualization already prepared, you can skip this and continue with [embedding](/tutorial/embedding-custom-visualization-into-dashboard).
 
-If you are not familiar with the [D3.js](http://d3js.org/), read [the documentation](https://github.com/mbostock/d3/wiki) first. 
+We will use [Google Charts](https://google-developers.appspot.com/chart/). You can also use any Javascript framework like [D3.js](http://d3js.org/), find out the [the documentation](https://github.com/mbostock/d3/wiki). 
 
-You can also check out end-to-end [Parallel coordinates tutorial](/example/building-parallel-coordinates). 
+_You can also check out our [end to end examples](/build-visualization/#examples)._
 
-### Parallel Coordinates - d3.js
+### What we already know
 
-See the comments in the code for better understanding.
+See the code below to recap how we can log in to the GoodData and extract data from your project. 
 
 {% highlight js %}
-var m = [30, 10, 10, 10],
-	w = 960 - m[1] - m[3],
-    h = 500 - m[0] - m[2];
+google.load("visualization", "1", {packages:["corechart"]});
 
-var x = d3.scale.ordinal().rangePoints([0, w], 1),
-    	y = {},
-    	dragging = {};
+var projectId = 'project-id', 
+	user = 'username@company.com',
+	passwd = 'password';
 
-var line = d3.svg.line(),
-    	axis = d3.svg.axis().orient("left"),
-    	background,
-    	foreground;
+// Report elements identifiers from which we execute a GD report
+var open = 'aiAY9GSReqiT',
+	close = 'aHZY9nzNeg3f',
+	year = 'date.aag81lMifn6q';
+    
+var elements = [year, open, close];
 
-var svg = d3.select("body").append("svg:svg")
-    	.attr("width", w + m[1] + m[3])
-    	.attr("height", h + m[0] + m[2])
-    	.append("svg:g")
-    	.attr("transform", "translate(" + m[3] + "," + m[0] + ")");
+// Insert info label
+$('body').append('<div class="login-loader>Logging in...</div>');
+
+gooddata.user.login(user, passwd).then(function() {
+
+    $('div.login-loader').remove();
+    $('body').append('<div class="loading" style="text-align: center; margin: 30px;">Loading data...</div>');
+
+    // Ask for data for the given metric and attributes from the GoodSales project
+    gooddata.execution.getData(projectId, elements).then(function(dataResult) {
+        // Yay, data arrived  
+
 {% endhighlight %}
 
-Below is the main method that draw the visualization.
+We have a data, let's build a line chart.
+
+### Visualization Set Up
+
+<img src="/images/posts/google-line-chart.png" width="650" />
 
 {% highlight js %}
-// the main method that extract data and draw the visualization
-var parallel = function(dataResult) {
 
-		// extract header titles for axis description    
+ 		// extract header values
         var headers = dataResult.headers.map(function(h) {
-                return h.title;
-            });
-    		    
-    		    // delete the attribute (first in returned array) description from header array - you need just metrics description
-                headers.splice(0,1);
+                    return h.title;
+                });
         
-    	// Extract the list of dimensions and create a scale for each.  
-    	x.domain(dimensions = d3.keys(dataResult.rawData[0]).filter(function(d) {
-    	 	return d != "0" && (y[d] = d3.scale.linear()
-    	 .domain(d3.extent(dataResult.rawData, function(p) { return +p[d]; }))
-    	 .range([h, 0]));
-    	 }));
+        // extract raw data matrix
+        var data = dataResult.rawData;
+		
+		// we need to convert metrics to integer because google chart needs numbers
+       	for(var i = 0; i < data.length; i++) {
+				for(var j = 1; j < data[i].length; j++) {
+				data[i][j] = parseInt(data[i][j]);
+			  }
+			}    
+        // Remove loading labels
+        $('div.loading').remove();  
+        
+        // call function back to draw the chart after document is ready
+        google.setOnLoadCallback(drawChart(data, headers));
+		
+		// function to draw line chart with our data 
+		function drawChart(data, headers) {
 
-    	  // Add grey background lines for context.
-    	  background = svg.append("svg:g")
-    	      .attr("class", "background")
-    	    .selectAll("path")
-    	      .data(dataResult.rawData)
-    	    .enter().append("svg:path")
-    	      .attr("d", path);
-    	 
-    	  // Add blue foreground lines for focus.
-    	  foreground = svg.append("svg:g")
-    	      .attr("class", "foreground")
-    	    .selectAll("path")
-    	      .data(dataResult.rawData)
-    	    .enter().append("svg:path")
-    	      .attr("d", path);
-    	 
-    	  // Add a group element for each dimension.
-    	  var g = svg.selectAll(".dimension")
-    	      .data(dimensions)
-    	    .enter().append("svg:g")
-    	      .attr("class", "dimension")
-    	      .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-    	      .call(d3.behavior.drag()
-    	        .on("dragstart", function(d) {
-    	          dragging[d] = this.__origin__ = x(d);
-    	          background.attr("visibility", "hidden");
-    	        })
-    	        .on("drag", function(d) {
-    	          dragging[d] = Math.min(w, Math.max(0, this.__origin__ += d3.event.dx));
-    	          foreground.attr("d", path);
-    	          dimensions.sort(function(a, b) { return position(a) - position(b); });
-    	          x.domain(dimensions);
-    	          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-    	        })
-    	        .on("dragend", function(d) {
-    	          delete this.__origin__;
-    	          delete dragging[d];
-    	          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-    	          transition(foreground)
-    	              .attr("d", path);
-    	          background
-    	              .attr("d", path)
-    	              .transition()
-    	              .delay(500)
-    	              .duration(0)
-    	              .attr("visibility", null);
-    	        }));
-    	 
-    	  // Add an axis and title.
-    	  g.append("svg:g")
-    	      .attr("class", "axis")
-    	      .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
-    	    .append("svg:text")
-    	      .data(headers)
-    	      .attr("text-anchor", "middle")
-    	      .attr("y", -9)
-    	      .text(String);
-    	 
-    	  // Add and store a brush for each axis.
-    	  g.append("svg:g")
-    	      .attr("class", "brush")
-    	      .each(function(d) { d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brush", brush)); })
-    	    .selectAll("rect")
-    	      .attr("x", -8)
-    	      .attr("width", 16);
-    };
-{% endhighlight %}		
+            var data = google.visualization.arrayToDataTable(dataResult.rawData);
+            	var data3 = new google.visualization.DataTable();
+		    		data3.addColumn('string', headers[0]);
+		    		data3.addColumn('number', headers[1]);
+		    		data3.addColumn('number', headers[2]);
+		    		data3.addRows(data);
+		    		console.log(data);
+		    
+            var options = {
+              title: 'Nasdaq',
+              hAxis: {title: headers[0],  titleTextStyle: {color: '#333'}},
+              vAxis: {minValue: 0}
+        };
 
-Call the main method that draw the visualization.
-
-{% highlight js %}
-
-		// calling the main method
-		parallel(dataResult);   
-
-{% endhighlight %}		
-
-Finalize the dragging and transition effects. 
-
-{% highlight js %}
-
-		function position(d) {
-			var v = dragging[d];
-			return v == null ? x(d) : v;
-			}
- 
-			function transition(g) {
-				return g.transition().duration(500);
-			}
- 
-			// Returns the path for a given data point.
-			function path(d) {
-			  return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
-			}
-			
-			// Handles a brush event, toggling the display of foreground lines.
-			function brush() {
-			  var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
-			      extents = actives.map(function(p) { return y[p].brush.extent(); });
-			  foreground.style("display", function(d) {
-			    return actives.every(function(p, i) {
-			      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-			    }) ? null : "none";
-			  });
-			}
-
-		});
-});
-
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));
+        chart.draw(data3, options);
+       }
 {% endhighlight %}
+
+### Complete HTML
+
+The last part is complete html code. See below:
+
+{% highlight html %}
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="../gooddata.js"></script>
+  </head>
+  <body>
+    <div id="chart_div" style="width: 900px; height: 500px;"></div>
+  </body>
+    <script type="text/javascript" src="linechart.js"></script>    
+</html>
+{% endhighlight %}
+
+
+You can find out complete example as a part of the [library you cloned](https://github.com/gooddata/gooddata-js) from Github. Try it yourself. 

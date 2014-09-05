@@ -21,6 +21,17 @@ The result might looks like this:
 
 Remember that each line shows individual sales rep and each axis shows one metric that is used to measure sales representatives. We have a use case, so let's build it!
 
+We need following metrics (remember to check identifiers in your project):
+
+**Won Amount**: atX3I1GYg85J  
+**# Activities** : acKjadJIgZUN  
+**# Opportunities**: afdV48ABh8CN  
+**# Won Opportunities**: abf0d42yaIkL  
+
+Select the sales rep attribute identifier from the project:
+
+**Opportunity Owner**: label.opp_owner.id.name  
+
 Let's log in and download the data. I already have those metrics ready in the GoodData. Now I need to select them and use them in the visualization.
 
 {% highlight js %}

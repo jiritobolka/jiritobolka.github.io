@@ -10,18 +10,22 @@ perex: Learn how to pull data from GoodData and visualize it in D3.js Chord char
 
 Talking about visualization frameworks and libraries the [dc.js](http://dc-js.github.io/dc.js/) together with [Crossfilter](https://github.com/square/crossfilter/wiki/API-Reference) is great combo on the top of D3.js framework. There is a solid amount of examples around the internet so that you can start playing around immediately.
 
-I took the example from the dc.js homepage which looks pretty cool and is [greatly and fully described](http://dc-js.github.io/dc.js/docs/stock.html) and try to bring it to the next level. What I did? The original example is based on static CSV file. What is really cool? You can quite easily connect it to the GoodData Platform, get the data from your Project and use the visualization embedded to your dashboard. This is what we called **Visualization Extensibility**.
+We took the example from the dc.js homepage which looks pretty cool and is [greatly and fully described](http://dc-js.github.io/dc.js/docs/stock.html) and try to bring it to the next level. What we did? The original example is based on static CSV file. What is really cool? You can quite easily connect it to the GoodData Platform, get the data from your Project and use the visualization embedded to your dashboard. This is what we called **Visualization Extensibility**.
+
+So let's say we have a GoodData Project with Nasdaq data in it. See the example report below:
+
+<img src="/images/posts/source-report.png" alt="Source Report" width="600px" />
 
 The potential is huge! If you miss some visualization, just build it and embed it directly to the GoodData Project!
 
 <img src="/images/posts/dc-js-example.png" alt="Dynamic Visualizations" />
 
-[Download the full example]() to see how it looks connected to the GoodData.   
+The full script is in the example folder of the [Visualization SDK library](https://github.com/gooddata/gooddata-js).   
 
 ## Prerequisites 
 
 1. Downloaded [dc.js](http://dc-js.github.io/dc.js/) & [Crossfilter](https://github.com/square/crossfilter/wiki/API-Reference)
-1. Have the data in the GoodData Project that you can visualize
+1. Have the data in the GoodData Project that you can visualize (you can build example project using this script)
 
 ## Integration
 
@@ -34,15 +38,14 @@ var projectId = 'project-id',
 	passwd = 'password';
 
 // Report elements identifiers from which we execute a GD report
-var metric1 = 'aiAY9GSReqiT',
-	metric2 = 'aaEY9xX2e5FE',
-	metric3 = 'aa0Y9Pe6etWb',
-	metric4 = 'aHZY9nzNeg3f',
-    metric5 = 'aitZm37nbyhn',
-    attr1 = 'date.date.mmddyyyy';
+var open = 'ak6IS471fqU4',
+	high = 'an3ISF1EiuFv',
+	low = 'apiISRdbfmS7',
+	close = 'adCISUDJfpJW',
+    volume = 'adCISXzgiy3t',
+    date = 'date.date.mmddyyyy';
     
-var elements = [attr1, metric1, metric2, metric3, metric4, metric5];
-
+var elements = [date, open, high, low, close, volume];
 {% endhighlight %}
 
 Remember that order you specify in the elements array is the same that the elements will be exported from the GoodData.
