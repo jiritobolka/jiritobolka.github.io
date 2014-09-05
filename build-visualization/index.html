@@ -44,21 +44,21 @@ title: GoodData Javascript SDK - Building My First Visualization
 
 <a style="font-size: 13pt;" href="/tutorial/embedding-custom-visualization-into-dashboard">Learn how to embed the visualization >></a>
 
+<a name="examples"></a>
 <h5>That's it!</h5>
 
 <p>Check out all examples we have prepared for you. You can play around with them and create new examples and share them with others.</p>
 
-<a name="examples"></a>
-<h2>Explore More Examples</h2>
+<h3>Explore More Examples</h3>
+<div class="explore">
 
-  <ul class="posts">
     {% for post in site.posts %}
       {% if post.categories contains 'example' %}
         <div>
-          <a href="{{ site.url }}{{ post.url }}"><h3>{{ post.title }}</h3></a>
+          <a href="{{ site.url }}{{ post.url }}"><h4>{{ post.title }}</h4></a>
           <div>{{ post.perex }}</div>
         </div>
       {% endif %}
     {% endfor %}
-  </ul>
+</div>
 </div>
